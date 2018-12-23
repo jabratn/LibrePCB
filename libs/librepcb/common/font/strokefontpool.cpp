@@ -21,8 +21,7 @@
  *  Includes
  ******************************************************************************/
 #include "strokefontpool.h"
-
-#include "../fileio/fileutils.h"
+#include "fileio/filesystemref.h"
 
 #include <QtCore>
 
@@ -35,17 +34,16 @@ namespace librepcb {
  *  Constructors / Destructor
  ******************************************************************************/
 
-StrokeFontPool::StrokeFontPool(const FilePath& directory) noexcept {
+StrokeFontPool::StrokeFontPool(const FileSystemRef& filesystem) noexcept {
   try {
-    foreach (const FilePath& fp,
-             FileUtils::getFilesInDirectory(directory, {"*.bene"})) {
+    foreach (const QString& name, filesystem.getFilesInDir("", {"*.bene"})) {
+      FilePath fp = filesystem.createTemporaryFileOnDisk(name);
       try {
-        qDebug() << "Load stroke font:" << fp.getFilename();
-        mFonts.insert(fp.getFilename(),
-                      std::make_shared<StrokeFont>(fp));  // can throw
+        qDebug() << "Load stroke font:" << fp.toNative();
+        mFonts.insert(name, std::make_shared<StrokeFont>(fp));  // can throw
       } catch (const Exception& e) {
-        qCritical() << "Failed to load stroke font" << fp.toNative() << ":"
-                    << e.getMsg();
+        qCritical() << "Failed to load stroke font"
+                    << fp.toNative() << ":" << e.getMsg();
       }
     }
   } catch (const Exception& e) {
