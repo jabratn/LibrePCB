@@ -70,6 +70,7 @@ SOURCES += \
     fileio/smarttextfile.cpp \
     fileio/smartversionfile.cpp \
     fileio/transactionalfilesystem.cpp \
+    fileio/versionfile.cpp \
     font/strokefont.cpp \
     font/strokefontpool.cpp \
     geometry/circle.cpp \
@@ -187,6 +188,7 @@ HEADERS += \
     fileio/smarttextfile.h \
     fileio/smartversionfile.h \
     fileio/transactionalfilesystem.h \
+    fileio/versionfile.h \
     font/strokefont.h \
     font/strokefontpool.h \
     geometry/circle.h \
