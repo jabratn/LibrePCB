@@ -157,7 +157,7 @@ private:
   QScopedPointer<WorkspaceLibraryScanner> mLibraryScanner;
 
   // Constants
-  static const int sCurrentDbVersion = 1;
+  static const int sCurrentDbVersion = 2;
 };
 
 /*******************************************************************************

@@ -562,12 +562,14 @@ void WorkspaceLibraryDb::createAllTables() {
       "`id` INTEGER PRIMARY KEY NOT NULL, "
       "`filepath` TEXT UNIQUE NOT NULL, "
       "`uuid` TEXT NOT NULL, "
-      "`version` TEXT NOT NULL "
+      "`version` TEXT NOT NULL, "
+      "`icon_png` BLOB "
       ")");
   queries << QString(
       "CREATE TABLE IF NOT EXISTS libraries_tr ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`lib_id` INTEGER REFERENCES libraries(id) NOT NULL, "
+      "`lib_id` INTEGER "
+      "REFERENCES libraries(id) ON DELETE CASCADE NOT NULL, "
       "`locale` TEXT NOT NULL, "
       "`name` TEXT, "
       "`description` TEXT, "
@@ -588,7 +590,8 @@ void WorkspaceLibraryDb::createAllTables() {
   queries << QString(
       "CREATE TABLE IF NOT EXISTS component_categories_tr ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`cat_id` INTEGER REFERENCES component_categories(id) NOT NULL, "
+      "`cat_id` INTEGER "
+      "REFERENCES component_categories(id) ON DELETE CASCADE NOT NULL, "
       "`locale` TEXT NOT NULL, "
       "`name` TEXT, "
       "`description` TEXT, "
@@ -609,7 +612,8 @@ void WorkspaceLibraryDb::createAllTables() {
   queries << QString(
       "CREATE TABLE IF NOT EXISTS package_categories_tr ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`cat_id` INTEGER REFERENCES package_categories(id) NOT NULL, "
+      "`cat_id` INTEGER "
+      "REFERENCES package_categories(id) ON DELETE CASCADE NOT NULL, "
       "`locale` TEXT NOT NULL, "
       "`name` TEXT, "
       "`description` TEXT, "
@@ -629,7 +633,8 @@ void WorkspaceLibraryDb::createAllTables() {
   queries << QString(
       "CREATE TABLE IF NOT EXISTS symbols_tr ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`symbol_id` INTEGER REFERENCES symbols(id) NOT NULL, "
+      "`symbol_id` INTEGER "
+      "REFERENCES symbols(id) ON DELETE CASCADE NOT NULL, "
       "`locale` TEXT NOT NULL, "
       "`name` TEXT, "
       "`description` TEXT, "
@@ -639,7 +644,8 @@ void WorkspaceLibraryDb::createAllTables() {
   queries << QString(
       "CREATE TABLE IF NOT EXISTS symbols_cat ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`symbol_id` INTEGER REFERENCES symbols(id) NOT NULL, "
+      "`symbol_id` INTEGER "
+      "REFERENCES symbols(id) ON DELETE CASCADE NOT NULL, "
       "`category_uuid` TEXT NOT NULL, "
       "UNIQUE(symbol_id, category_uuid)"
       ")");
@@ -656,7 +662,8 @@ void WorkspaceLibraryDb::createAllTables() {
   queries << QString(
       "CREATE TABLE IF NOT EXISTS packages_tr ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`package_id` INTEGER REFERENCES packages(id) NOT NULL, "
+      "`package_id` INTEGER "
+      "REFERENCES packages(id) ON DELETE CASCADE NOT NULL, "
       "`locale` TEXT NOT NULL, "
       "`name` TEXT, "
       "`description` TEXT, "
@@ -666,7 +673,8 @@ void WorkspaceLibraryDb::createAllTables() {
   queries << QString(
       "CREATE TABLE IF NOT EXISTS packages_cat ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`package_id` INTEGER REFERENCES packages(id) NOT NULL, "
+      "`package_id` INTEGER "
+      "REFERENCES packages(id) ON DELETE CASCADE NOT NULL, "
       "`category_uuid` TEXT NOT NULL, "
       "UNIQUE(package_id, category_uuid)"
       ")");
@@ -683,7 +691,8 @@ void WorkspaceLibraryDb::createAllTables() {
   queries << QString(
       "CREATE TABLE IF NOT EXISTS components_tr ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`component_id` INTEGER REFERENCES components(id) NOT NULL, "
+      "`component_id` INTEGER "
+      "REFERENCES components(id) ON DELETE CASCADE NOT NULL, "
       "`locale` TEXT NOT NULL, "
       "`name` TEXT, "
       "`description` TEXT, "
@@ -693,7 +702,8 @@ void WorkspaceLibraryDb::createAllTables() {
   queries << QString(
       "CREATE TABLE IF NOT EXISTS components_cat ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`component_id` INTEGER REFERENCES components(id) NOT NULL, "
+      "`component_id` INTEGER "
+      "REFERENCES components(id) ON DELETE CASCADE NOT NULL, "
       "`category_uuid` TEXT NOT NULL, "
       "UNIQUE(component_id, category_uuid)"
       ")");
@@ -712,7 +722,8 @@ void WorkspaceLibraryDb::createAllTables() {
   queries << QString(
       "CREATE TABLE IF NOT EXISTS devices_tr ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`device_id` INTEGER REFERENCES devices(id) NOT NULL, "
+      "`device_id` INTEGER "
+      "REFERENCES devices(id) ON DELETE CASCADE NOT NULL, "
       "`locale` TEXT NOT NULL, "
       "`name` TEXT, "
       "`description` TEXT, "
@@ -722,7 +733,8 @@ void WorkspaceLibraryDb::createAllTables() {
   queries << QString(
       "CREATE TABLE IF NOT EXISTS devices_cat ("
       "`id` INTEGER PRIMARY KEY NOT NULL, "
-      "`device_id` INTEGER REFERENCES devices(id) NOT NULL, "
+      "`device_id` INTEGER "
+      "REFERENCES devices(id) ON DELETE CASCADE NOT NULL, "
       "`category_uuid` TEXT NOT NULL, "
       "UNIQUE(device_id, category_uuid)"
       ")");
