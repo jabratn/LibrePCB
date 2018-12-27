@@ -460,7 +460,7 @@ QSet<Uuid> WorkspaceLibraryDb::getComponentsBySearchKeyword(
  ******************************************************************************/
 
 void WorkspaceLibraryDb::startLibraryRescan() noexcept {
-  mLibraryScanner->start();
+  mLibraryScanner->startScan();
 }
 
 /*******************************************************************************
