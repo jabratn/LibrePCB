@@ -68,7 +68,11 @@ public:
   explicit WorkspaceLibraryDb(Workspace& ws);
   ~WorkspaceLibraryDb() noexcept;
 
+  // Getters: Libraries
+  QMultiMap<Version, FilePath> getLibraries() const;
+
   // Getters: Library Elements by their UUID
+  QMultiMap<Version, FilePath> getLibraries(const Uuid& uuid) const;
   QMultiMap<Version, FilePath> getComponentCategories(const Uuid& uuid) const;
   QMultiMap<Version, FilePath> getPackageCategories(const Uuid& uuid) const;
   QMultiMap<Version, FilePath> getSymbols(const Uuid& uuid) const;
@@ -77,6 +81,7 @@ public:
   QMultiMap<Version, FilePath> getDevices(const Uuid& uuid) const;
 
   // Getters: Best Match Library Elements by their UUID
+  FilePath getLatestLibrary(const Uuid& uuid) const;
   FilePath getLatestComponentCategory(const Uuid& uuid) const;
   FilePath getLatestPackageCategory(const Uuid& uuid) const;
   FilePath getLatestSymbol(const Uuid& uuid) const;
@@ -94,6 +99,10 @@ public:
                               const QStringList& localeOrder,
                               QString* name = nullptr, QString* desc = nullptr,
                               QString* keywords = nullptr) const;
+  template <typename ElementType>
+  void getElementMetadata(const FilePath elemDir, Uuid* uuid = nullptr,
+                          Version* version = nullptr) const;
+  void getLibraryMetadata(const FilePath libDir, QPixmap* icon = nullptr) const;
   void getDeviceMetadata(const FilePath& devDir, Uuid* pkgUuid = nullptr) const;
 
   // Getters: Special
@@ -131,6 +140,8 @@ private:
                               const FilePath&    elemDir,
                               const QStringList& localeOrder, QString* name,
                               QString* desc, QString* keywords) const;
+  void getElementMetadata(const QString& table, const FilePath elemDir,
+                          Uuid* uuid, Version* version) const;
   QMultiMap<Version, FilePath> getElementFilePathsFromDb(
       const QString& tablename, const Uuid& uuid) const;
   FilePath getLatestVersionFilePath(
