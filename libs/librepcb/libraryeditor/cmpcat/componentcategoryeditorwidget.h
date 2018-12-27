@@ -60,7 +60,7 @@ public:
   ComponentCategoryEditorWidget() = delete;
   ComponentCategoryEditorWidget(const ComponentCategoryEditorWidget& other) =
       delete;
-  ComponentCategoryEditorWidget(const Context& context, const FilePath& fp,
+  ComponentCategoryEditorWidget(const Context& context, const QString& fp,
                                 QWidget* parent = nullptr);
   ~ComponentCategoryEditorWidget() noexcept;
 

@@ -35,6 +35,7 @@
 
 namespace librepcb {
 
+class FileSystemRef;
 class SQLiteDatabase;
 
 namespace library {
@@ -91,13 +92,13 @@ private:  // Methods
       const FilePath&                                     dir,
       QHash<FilePath, std::shared_ptr<library::Library>>& libs) noexcept;
   template <typename ElementType>
-  int addCategoriesToDb(SQLiteDatabase& db, const QList<FilePath>& dirs,
+  int addCategoriesToDb(SQLiteDatabase& db, const QList<FileSystemRef>& dirs,
                         const QString& table, const QString& idColumn,
                         int libId);
   template <typename ElementType>
-  int addElementsToDb(SQLiteDatabase& db, const QList<FilePath>& dirs,
+  int addElementsToDb(SQLiteDatabase& db, const QList<FileSystemRef>& dirs,
                       const QString& table, const QString& idColumn, int libId);
-  int addDevicesToDb(SQLiteDatabase& db, const QList<FilePath>& dirs,
+  int addDevicesToDb(SQLiteDatabase& db, const QList<FileSystemRef>& dirs,
                      const QString& table, const QString& idColumn, int libId);
   template <typename T>
   static QVariant optionalToVariant(const T& opt) noexcept;

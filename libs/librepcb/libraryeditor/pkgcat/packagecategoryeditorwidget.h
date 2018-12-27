@@ -60,7 +60,7 @@ public:
   PackageCategoryEditorWidget() = delete;
   PackageCategoryEditorWidget(const PackageCategoryEditorWidget& other) =
       delete;
-  PackageCategoryEditorWidget(const Context& context, const FilePath& fp,
+  PackageCategoryEditorWidget(const Context& context, const QString& fp,
                               QWidget* parent = nullptr);
   ~PackageCategoryEditorWidget() noexcept;
 

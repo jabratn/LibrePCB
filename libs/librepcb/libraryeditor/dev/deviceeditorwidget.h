@@ -71,7 +71,7 @@ public:
   // Constructors / Destructor
   DeviceEditorWidget()                                = delete;
   DeviceEditorWidget(const DeviceEditorWidget& other) = delete;
-  DeviceEditorWidget(const Context& context, const FilePath& fp,
+  DeviceEditorWidget(const Context& context, const QString& fp,
                      QWidget* parent = nullptr);
   ~DeviceEditorWidget() noexcept;
 

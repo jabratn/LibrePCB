@@ -95,12 +95,12 @@ public:
   // Constructors / Destructor
   EditorWidgetBase()                              = delete;
   EditorWidgetBase(const EditorWidgetBase& other) = delete;
-  explicit EditorWidgetBase(const Context& context, const FilePath& fp,
+  explicit EditorWidgetBase(const Context& context, const QString& fp,
                             QWidget* parent = nullptr);
   virtual ~EditorWidgetBase() noexcept;
 
   // Getters
-  const FilePath& getFilePath() const noexcept { return mFilePath; }
+  const QString& getFilePath() const noexcept { return mFilePath; }
   bool            isDirty() const noexcept { return !mUndoStack->isClean(); }
   virtual bool    hasGraphicalEditor() const noexcept { return false; }
 
@@ -154,14 +154,14 @@ private:  // Methods
 
 signals:
   void dirtyChanged(bool dirty);
-  void elementEdited(const FilePath& fp);
+  void elementEdited(const QString& fp);
   void interfaceBrokenChanged(bool broken);
   void errorsAvailableChanged(bool hasErrors);
   void cursorPositionChanged(const Point& pos);
 
 protected:  // Data
   Context                      mContext;
-  FilePath                     mFilePath;
+  QString                     mFilePath;
   QScopedPointer<UndoStack>    mUndoStack;
   UndoStackActionGroup*        mUndoStackActionGroup;
   ExclusiveActionGroup*        mToolsActionGroup;

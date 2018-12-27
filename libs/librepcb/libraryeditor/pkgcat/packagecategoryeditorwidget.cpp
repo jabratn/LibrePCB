@@ -47,7 +47,7 @@ namespace editor {
  ******************************************************************************/
 
 PackageCategoryEditorWidget::PackageCategoryEditorWidget(const Context& context,
-                                                         const FilePath& fp,
+                                                         const QString& fp,
                                                          QWidget*        parent)
   : EditorWidgetBase(context, fp, parent),
     mUi(new Ui::PackageCategoryEditorWidget) {

@@ -70,7 +70,7 @@ public:
   // Constructors / Destructor
   SymbolEditorWidget()                                = delete;
   SymbolEditorWidget(const SymbolEditorWidget& other) = delete;
-  SymbolEditorWidget(const Context& context, const FilePath& fp,
+  SymbolEditorWidget(const Context& context, const QString& fp,
                      QWidget* parent = nullptr);
   ~SymbolEditorWidget() noexcept;
 

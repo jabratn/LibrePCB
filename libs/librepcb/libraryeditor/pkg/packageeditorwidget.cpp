@@ -57,7 +57,7 @@ namespace editor {
  ******************************************************************************/
 
 PackageEditorWidget::PackageEditorWidget(const Context&  context,
-                                         const FilePath& fp, QWidget* parent)
+                                         const QString& fp, QWidget* parent)
   : EditorWidgetBase(context, fp, parent),
     mUi(new Ui::PackageEditorWidget),
     mGraphicsScene(new GraphicsScene()) {

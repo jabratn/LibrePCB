@@ -59,7 +59,7 @@ namespace editor {
  ******************************************************************************/
 
 DeviceEditorWidget::DeviceEditorWidget(const Context&  context,
-                                       const FilePath& fp, QWidget* parent)
+                                       const QString& fp, QWidget* parent)
   : EditorWidgetBase(context, fp, parent), mUi(new Ui::DeviceEditorWidget) {
   mUi->setupUi(this);
   mUi->lstMessages->setHandler(this);

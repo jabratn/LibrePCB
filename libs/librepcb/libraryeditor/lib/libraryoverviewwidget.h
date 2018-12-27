@@ -72,13 +72,13 @@ public slots:
   bool save() noexcept override;
 
 signals:
-  void editComponentCategoryTriggered(const FilePath& fp);
-  void editPackageCategoryTriggered(const FilePath& fp);
-  void editSymbolTriggered(const FilePath& fp);
-  void editPackageTriggered(const FilePath& fp);
-  void editComponentTriggered(const FilePath& fp);
-  void editDeviceTriggered(const FilePath& fp);
-  void removeElementTriggered(const FilePath& fp);
+  void editComponentCategoryTriggered(const QString& fp);
+  void editPackageCategoryTriggered(const QString& fp);
+  void editSymbolTriggered(const QString& fp);
+  void editPackageTriggered(const QString& fp);
+  void editComponentTriggered(const QString& fp);
+  void editDeviceTriggered(const QString& fp);
+  void removeElementTriggered(const QString& fp);
 
 private:  // Methods
   void    updateMetadata() noexcept;
@@ -98,7 +98,7 @@ private:  // Methods
   void updateElementList(QListWidget& listWidget, const QIcon& icon) noexcept;
   void openContextMenuAtPos(const QPoint& pos) noexcept;
   bool removeSelectedItem(const QString&  itemName,
-                          const FilePath& itemPath) noexcept;
+                          const QString& itemPath) noexcept;
 
   // Event Handlers
   void btnIconClicked() noexcept;

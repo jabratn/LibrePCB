@@ -43,7 +43,7 @@ namespace editor {
  *  Constructors / Destructor
  ******************************************************************************/
 
-EditorWidgetBase::EditorWidgetBase(const Context& context, const FilePath& fp,
+EditorWidgetBase::EditorWidgetBase(const Context& context, const QString& fp,
                                    QWidget* parent)
   : QWidget(parent),
     mContext(context),

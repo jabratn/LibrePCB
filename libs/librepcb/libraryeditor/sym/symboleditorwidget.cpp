@@ -62,7 +62,7 @@ namespace editor {
  ******************************************************************************/
 
 SymbolEditorWidget::SymbolEditorWidget(const Context&  context,
-                                       const FilePath& fp, QWidget* parent)
+                                       const QString& fp, QWidget* parent)
   : EditorWidgetBase(context, fp, parent),
     mUi(new Ui::SymbolEditorWidget),
     mGraphicsScene(new GraphicsScene()) {

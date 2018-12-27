@@ -52,7 +52,7 @@ namespace editor {
 LibraryOverviewWidget::LibraryOverviewWidget(const Context&          context,
                                              QSharedPointer<Library> lib,
                                              QWidget* parent) noexcept
-  : EditorWidgetBase(context, lib->getFilePath(), parent),
+  : EditorWidgetBase(context, lib->getFileSystem().getPrettyPath(""), parent),
     mLibrary(lib),
     mUi(new Ui::LibraryOverviewWidget) {
   mUi->setupUi(this);
@@ -346,7 +346,7 @@ void LibraryOverviewWidget::openContextMenuAtPos(const QPoint& pos) noexcept {
 }
 
 bool LibraryOverviewWidget::removeSelectedItem(
-    const QString& itemName, const FilePath& itemPath) noexcept {
+    const QString& itemName, const QString& itemPath) noexcept {
   int ret = QMessageBox::warning(
       this, tr("Remove %1").arg(itemName),
       QString(tr("WARNING: Library elements must normally NOT be removed "
@@ -381,9 +381,9 @@ bool LibraryOverviewWidget::removeSelectedItem(
  ******************************************************************************/
 
 void LibraryOverviewWidget::btnIconClicked() noexcept {
-  QString fp = FileDialog::getOpenFileName(
-      this, tr("Choose library icon"), mLibrary->getIconFilePath().toNative(),
-      tr("Portable Network Graphics (*.png)"));
+  QString fp =
+      FileDialog::getOpenFileName(this, tr("Choose library icon"), QString(),
+                                  tr("Portable Network Graphics (*.png)"));
   if (!fp.isEmpty()) {
     try {
       mIcon = FileUtils::readFile(FilePath(fp));  // can throw

@@ -138,15 +138,15 @@ private:  // GUI Event Handlers
   void zoomOutTriggered() noexcept;
   void zoomAllTriggered() noexcept;
   void editGridPropertiesTriggered() noexcept;
-  void editComponentCategoryTriggered(const FilePath& fp) noexcept;
-  void editPackageCategoryTriggered(const FilePath& fp) noexcept;
-  void editSymbolTriggered(const FilePath& fp) noexcept;
-  void editPackageTriggered(const FilePath& fp) noexcept;
-  void editComponentTriggered(const FilePath& fp) noexcept;
-  void editDeviceTriggered(const FilePath& fp) noexcept;
-  void closeTabIfOpen(const FilePath& fp) noexcept;
+  void editComponentCategoryTriggered(const QString& fp) noexcept;
+  void editPackageCategoryTriggered(const QString& fp) noexcept;
+  void editSymbolTriggered(const QString& fp) noexcept;
+  void editPackageTriggered(const QString& fp) noexcept;
+  void editComponentTriggered(const QString& fp) noexcept;
+  void editDeviceTriggered(const QString& fp) noexcept;
+  void closeTabIfOpen(const QString& fp) noexcept;
   template <typename ElementType, typename EditWidgetType>
-  void editLibraryElementTriggered(const FilePath& fp,
+  void editLibraryElementTriggered(const QString& fp,
                                    bool            isNewElement) noexcept;
   void currentTabChanged(int index) noexcept;
   void tabCloseRequested(int index) noexcept;
