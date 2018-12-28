@@ -317,8 +317,8 @@ Project::Project(const FilePath& filepath, bool create, bool readOnly,
     connect(mProjectMetadata.data(), &ProjectMetadata::attributesChanged, this,
             &Project::attributesChanged);
     mProjectSettings.reset(new ProjectSettings(*this, create));
-    mProjectLibrary.reset(new ProjectLibrary(mPath.getPathTo("library"),
-                                             mIsRestored, mIsReadOnly));
+    mProjectLibrary.reset(
+        new ProjectLibrary(FileSystemRef(*mFileSystem, "library")));
     mErcMsgList.reset(new ErcMsgList(*this));
     mCircuit.reset(new Circuit(*this, create));
 
@@ -327,10 +327,9 @@ Project::Project(const FilePath& filepath, bool create, bool readOnly,
 
     // Load all schematics
     if (!create) {
-      QString     fn    = "schematics/schematics.lp";
-      QString fp = mFileSystem->getPrettyPath(fn);
-      SExpression schRoot = SExpression::parse(mFileSystem->readText(fn),
-                                               fp);
+      QString     fn      = "schematics/schematics.lp";
+      QString     fp      = mFileSystem->getPrettyPath(fn);
+      SExpression schRoot = SExpression::parse(mFileSystem->readText(fn), fp);
       foreach (const SExpression& node, schRoot.getChildren("schematic")) {
         FilePath fp =
             FilePath::fromRelative(mPath, node.getValueOfFirstChild<QString>());
@@ -348,10 +347,9 @@ Project::Project(const FilePath& filepath, bool create, bool readOnly,
 
     // Load all boards
     if (!create) {
-      QString     fn    = "boards/boards.lp";
-      QString fp = mFileSystem->getPrettyPath(fn);
-      SExpression brdRoot = SExpression::parse(mFileSystem->readText(fn),
-                                               fp);
+      QString     fn      = "boards/boards.lp";
+      QString     fp      = mFileSystem->getPrettyPath(fn);
+      SExpression brdRoot = SExpression::parse(mFileSystem->readText(fn), fp);
       foreach (const SExpression& node, brdRoot.getChildren("board")) {
         FilePath fp =
             FilePath::fromRelative(mPath, node.getValueOfFirstChild<QString>());
@@ -840,7 +838,7 @@ bool Project::save(bool toOriginal, QStringList& errors) noexcept {
   }
 
   // Save library
-  if (!mProjectLibrary->save(toOriginal, errors)) success = false;
+  if (!mProjectLibrary->save(errors)) success = false;
 
   // Save settings
   if (!mProjectSettings->save(errors)) success = false;

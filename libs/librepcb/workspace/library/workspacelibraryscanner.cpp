@@ -24,6 +24,7 @@
 
 #include "../workspace.h"
 
+#include <librepcb/common/fileio/diskfilesystem.h>
 #include <librepcb/common/sqlitedatabase.h>
 #include <librepcb/library/elements.h>
 
@@ -112,8 +113,10 @@ void WorkspaceLibraryScanner::scan() noexcept {
 
     // update list of libraries
     QHash<FilePath, std::shared_ptr<Library>> libraries;
-    getLibrariesOfDirectory(mWorkspace.getLocalLibrariesPath(), libraries);
-    getLibrariesOfDirectory(mWorkspace.getRemoteLibrariesPath(), libraries);
+    DiskFileSystem localFs(mWorkspace.getLocalLibrariesPath(), true);
+    DiskFileSystem remoteFs(mWorkspace.getRemoteLibrariesPath(), true);
+    getLibraries(localFs, libraries);
+    getLibraries(remoteFs, libraries);
     QHash<FilePath, int> libIds = updateLibraries(db, libraries);  // can throw
     emit                 scanLibraryListUpdated(libIds.count());
     qDebug() << "Workspace libraries indexed:" << libIds.count()
@@ -179,23 +182,22 @@ void WorkspaceLibraryScanner::scan() noexcept {
   emit scanFinished();
 }
 
-void WorkspaceLibraryScanner::getLibrariesOfDirectory(
-    const FilePath&                            dir,
+void WorkspaceLibraryScanner::getLibraries(
+    const DiskFileSystem&                      fs,
     QHash<FilePath, std::shared_ptr<Library>>& libs) noexcept {
-  foreach (const QString& name,
-           QDir(dir.toStr()).entryList(QDir::AllDirs | QDir::NoDotAndDotDot)) {
-    FilePath libDirPath = dir.getPathTo(name);
-    if (Library::isValidElementDirectory<Library>(libDirPath)) {
-      try {
-        libs.insert(libDirPath, std::make_shared<Library>(libDirPath, true));
-      } catch (Exception& e) {
-        qCritical() << "Could not open workspace library!";
-        qCritical() << "Library:" << libDirPath.toNative();
-        qCritical() << "Error:" << e.getMsg();
-      }
-    } else {
-      qWarning() << "Directory is not a valid libary:" << libDirPath.toNative();
-    }
+  foreach (const QString& name, fs.getSubDirs()) {
+    //FileSystemRef libDir = FileSystemRef(fs).getRefToDir(name);
+    //if (Library::isValidElementDirectory<Library>(libDir)) {
+    //  try {
+    //    libs.insert(libDir, std::make_shared<Library>(libDir));
+    //  } catch (Exception& e) {
+    //    qCritical() << "Could not open workspace library!";
+    //    qCritical() << "Library:" << libDirPath.toNative();
+    //    qCritical() << "Error:" << e.getMsg();
+    //  }
+    //} else {
+    //  qWarning() << "Directory is not a valid libary:" << libDirPath.toNative();
+    //}
   }
 }
 
@@ -319,7 +321,7 @@ void WorkspaceLibraryScanner::clearAllTables(SQLiteDatabase& db) {
 
 template <typename ElementType>
 int WorkspaceLibraryScanner::addCategoriesToDb(SQLiteDatabase&        db,
-                                               const QList<FilePath>& dirs,
+                                               const QList<FileSystemRef>& dirs,
                                                const QString&         table,
                                                const QString&         idColumn,
                                                int                    libId) {

@@ -35,6 +35,7 @@
 
 namespace librepcb {
 
+class DiskFileSystem;
 class FileSystemRef;
 class SQLiteDatabase;
 
@@ -88,8 +89,8 @@ private:  // Methods
       SQLiteDatabase&                                           db,
       const QHash<FilePath, std::shared_ptr<library::Library>>& libs);
   void clearAllTables(SQLiteDatabase& db);
-  void getLibrariesOfDirectory(
-      const FilePath&                                     dir,
+  void getLibraries(
+      const DiskFileSystem&                               fs,
       QHash<FilePath, std::shared_ptr<library::Library>>& libs) noexcept;
   template <typename ElementType>
   int addCategoriesToDb(SQLiteDatabase& db, const QList<FileSystemRef>& dirs,

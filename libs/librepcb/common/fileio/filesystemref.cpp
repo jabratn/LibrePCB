@@ -44,6 +44,15 @@ FileSystemRef::~FileSystemRef() noexcept {
 }
 
 /*******************************************************************************
+ *  General Methods
+ ******************************************************************************/
+
+FileSystemRef FileSystemRef::getRefToDir(const QString& dir) const noexcept {
+  Q_ASSERT(!dir.isEmpty());
+  return FileSystemRef(*mFileSystem, getAbsPath(dir));
+}
+
+/*******************************************************************************
  *  File Operations
  ******************************************************************************/
 

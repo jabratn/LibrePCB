@@ -47,6 +47,9 @@ public:
   FileSystemRef(FileSystem& fs, const QString& root = "") noexcept;
   ~FileSystemRef() noexcept;
 
+  // General Methods
+  FileSystemRef getRefToDir(const QString& dir) const noexcept;
+
   // File Operations
   // QString getRootName() const noexcept override;
   QString     getPrettyPath(const QString& path = "") const noexcept override;

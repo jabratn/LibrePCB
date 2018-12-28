@@ -32,6 +32,9 @@
  *  Namespace / Forward Declarations
  ******************************************************************************/
 namespace librepcb {
+
+class DiskFileSystem;
+
 namespace library {
 class ComponentCategory;
 class PackageCategory;
@@ -86,6 +89,7 @@ private:
   QStringList                 mLocaleOrder;
   CategoryTreeItem*           mParent;
   tl::optional<Uuid>          mUuid;
+  QScopedPointer<DiskFileSystem> mCategoryFileSystem;
   QScopedPointer<ElementType> mCategory;
   unsigned int mDepth;  ///< this is to avoid endless recursion in the
                         ///< parent-child relationship

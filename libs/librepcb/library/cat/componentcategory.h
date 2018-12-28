@@ -52,7 +52,7 @@ public:
                     const ElementName& name_en_US,
                     const QString&     description_en_US,
                     const QString&     keywords_en_US);
-  ComponentCategory(const FileSystemRef& fileSystem);
+  explicit ComponentCategory(const FileSystemRef& fileSystem);
   ~ComponentCategory() noexcept;
 
   // Operator Overloadings

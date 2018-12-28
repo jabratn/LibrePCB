@@ -47,6 +47,9 @@ public:
   explicit DiskFileSystem(const FilePath& root, bool readOnly) noexcept;
   ~DiskFileSystem() noexcept;
 
+  // Getters
+  const FilePath& getRoot() const noexcept {return mRoot;}
+
   // File Operations
   // QString getRootName() const noexcept override;
   QString     getPrettyPath(const QString& path = "") const noexcept override;
