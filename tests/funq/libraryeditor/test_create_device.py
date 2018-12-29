@@ -5,8 +5,6 @@
 Test creating a device with the library editor
 """
 
-import time
-
 
 def test(library_editor, helpers):
     """
@@ -29,11 +27,10 @@ def test(library_editor, helpers):
     }
     for (widget, property), value in widget_properties.items():
         library_editor.widget('libraryEditorNewElementWizardMetadata' + widget).set_property(property, value)
-    time.sleep(0.5)  # Workaround for https://github.com/parkouss/funq/issues/39
     library_editor.widget('libraryEditorNewElementWizardNextButton').click()
 
     # Select component
-    library_editor.widget('libraryEditorNewElementWizardDevicePropertiesChooseComponentButton').click()
+    library_editor.widget('libraryEditorNewElementWizardDevicePropertiesChooseComponentButton').click(blocking=False)
     category_tree = library_editor.widget('libraryEditorNewElementWizardDevicePropertiesChooseComponentDialogCategoriesTree')
     helpers.wait_for_model_items_count(category_tree, 1)
     category_tree.model_items().items[0].select()
@@ -43,7 +40,7 @@ def test(library_editor, helpers):
     library_editor.widget('libraryEditorNewElementWizardDevicePropertiesChooseComponentDialogAcceptButton').click()
 
     # Select package
-    library_editor.widget('libraryEditorNewElementWizardDevicePropertiesChoosePackageButton').click()
+    library_editor.widget('libraryEditorNewElementWizardDevicePropertiesChoosePackageButton').click(blocking=False)
     category_tree = library_editor.widget('libraryEditorNewElementWizardDevicePropertiesChoosePackageDialogCategoriesTree')
     helpers.wait_for_model_items_count(category_tree, 3)
     category_tree.model_items().items[2].select()

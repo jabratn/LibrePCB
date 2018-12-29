@@ -5,8 +5,6 @@
 Test creating a component with the library editor
 """
 
-import time
-
 
 def test(library_editor, helpers):
     """
@@ -29,7 +27,6 @@ def test(library_editor, helpers):
     }
     for (widget, property), value in widget_properties.items():
         library_editor.widget('libraryEditorNewElementWizardMetadata' + widget).set_property(property, value)
-    time.sleep(0.5)  # Workaround for https://github.com/parkouss/funq/issues/39
     library_editor.widget('libraryEditorNewElementWizardNextButton').click()
 
     # Enter component properties
@@ -40,11 +37,10 @@ def test(library_editor, helpers):
     }
     for (widget, property), value in widget_properties.items():
         library_editor.widget('libraryEditorNewElementWizardComponentProperties' + widget).set_property(property, value)
-    time.sleep(0.5)  # Workaround for https://github.com/parkouss/funq/issues/39
     library_editor.widget('libraryEditorNewElementWizardNextButton').click()
 
     # Add a symbol
-    library_editor.widget('libraryEditorNewElementWizardComponentSymbolsChooseSymbolButton').click()
+    library_editor.widget('libraryEditorNewElementWizardComponentSymbolsChooseSymbolButton').click(blocking=False)
     category_tree = library_editor.widget('libraryEditorNewElementWizardComponentSymbolsChooseSymbolDialogCategoriesTree')
     helpers.wait_for_model_items_count(category_tree, 1)
     category_tree.model_items().items[0].select()

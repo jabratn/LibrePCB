@@ -63,7 +63,7 @@ def test_if_accept_does_nothing_if_no_component_selected(add_component_dialog):
     """
     Test if the accept button does nothing if no component is selected
     """
-    add_component_dialog.app.widget('schematicEditorAddComponentDialogButtonAccept').click()
+    add_component_dialog.app.widget('schematicEditorAddComponentDialogButtonAccept').click(blocking=False)
     assert add_component_dialog.dialog.properties()['visible'] is True
 
 

@@ -14,7 +14,7 @@ def test_new_project_wizard(librepcb):
     """
     with librepcb.open() as app:
         # Open new project wizard
-        app.widget('controlPanelNewProjectButton').click()
+        app.widget('controlPanelNewProjectButton').click(blocking=False)
         assert app.widget('controlPanelNewProjectWizard').properties()['visible'] is True
         # Enter metadata
         name = 'New Project'

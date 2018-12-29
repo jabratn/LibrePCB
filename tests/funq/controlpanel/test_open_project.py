@@ -14,7 +14,7 @@ def test_open_dialog(librepcb, helpers):
     """
     with librepcb.open() as app:
         path = librepcb.abspath(project)
-        app.widget('controlPanelOpenProjectButton').click()
+        app.widget('controlPanelOpenProjectButton').click(blocking=False)
         app.widget('controlPanelOpenProjectDialogFileNameEdit').set_property('text', path)
         app.widget('controlPanelOpenProjectDialogOkButton').click()
 
